@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react"
 import React, { memo } from "react"
 
 function createTimer() {
@@ -8,7 +9,7 @@ function createTimer() {
 }
 
 const Timer: React.FC = memo(() => {
-  return <>TImer</>
+  return <Box>TImer</Box>
 })
 
 export { Timer }
