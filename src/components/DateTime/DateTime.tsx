@@ -1,6 +1,6 @@
-import { Flex, Box } from "@chakra-ui/react"
+import { Flex, Box, Text } from "@chakra-ui/react"
 import React, { useEffect, useState, memo } from "react"
-import { DateBoxStyles, DateFlexStyles, TimeBoxStyles } from "./styles"
+import { DateBoxStyles, DateFlexStyles, TimeFlexStyles, TimeTextStyles } from "./styles"
 
 const DateTime: React.FC = memo(() => {
   const [time, setTime] = useState<string>("")
@@ -8,8 +8,10 @@ const DateTime: React.FC = memo(() => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(new Date().toLocaleTimeString())
-      setDate(new Date().toDateString())
+      setTime(new Date().toLocaleTimeString(["id"]))
+      setDate(new Date().toLocaleDateString(
+        ["id", "ID"],
+        { day: "numeric", weekday: "long", month: "long", year: "numeric" }))
     }, 1000)
 
     return () => clearInterval(interval)
@@ -18,7 +20,10 @@ const DateTime: React.FC = memo(() => {
   return (
     <Flex {...DateFlexStyles}>
       <Box {...DateBoxStyles}>{date}</Box>
-      <Box {...TimeBoxStyles}>{time}</Box>
+      <Flex {...TimeFlexStyles}>
+        <Text>Jam : </Text>
+        <Text {...TimeTextStyles}> {time}</Text>
+      </Flex>
     </Flex>
 
   )

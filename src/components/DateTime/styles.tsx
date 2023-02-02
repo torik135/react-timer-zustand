@@ -1,4 +1,4 @@
-import { BoxProps, FlexProps } from "@chakra-ui/react";
+import { BoxProps, FlexProps, TextProps } from "@chakra-ui/react";
 
 export const DateFlexStyles: FlexProps = {
   justifyContent: "space-between",
@@ -10,7 +10,12 @@ export const DateBoxStyles: BoxProps = {
   padding: ".5rem",
 }
 
-export const TimeBoxStyles: BoxProps = {
+export const TimeFlexStyles: FlexProps = {
   minWidth: "7rem",
   padding: ".5rem",
+}
+
+export const TimeTextStyles: TextProps = {
+  minWidth: "5rem",
+  marginLeft: ".5rem",
 }
