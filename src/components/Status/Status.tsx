@@ -1,10 +1,15 @@
 import { Box, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 
-const Status: React.FC = memo(() => {
+type IStatus = {
+  hour: string,
+  minute: string,
+}
+
+const Status: React.FC<IStatus> = memo(({ hour = 0, minute = 0 }) => {
   return (
     <Box>
-      <Text>[hours]-[minutes] hours Worked Today.</Text>
+      <Text>{hour} hour {minute} minute Worked Today.</Text>
     </Box>
   )
 })
