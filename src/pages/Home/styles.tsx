@@ -1,4 +1,4 @@
-import { BoxProps } from "@chakra-ui/react";
+import { BoxProps, FlexProps } from "@chakra-ui/react";
 
 export const HomeBoxStyles: BoxProps = {
   padding: "2rem",
@@ -11,3 +11,5 @@ export const CompBoxStyles: BoxProps = {
   borderRadius: "7px",
   bg: "tomato",
 }
+
+
