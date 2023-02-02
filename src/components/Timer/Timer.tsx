@@ -15,6 +15,8 @@ import {
 const Timer: React.FC = memo(() => {
   const [working, setWorking] = useState<boolean>(false)
   const [time, setTime] = useState<number>(0)
+  const [statHour, setStatHour] = useState<string>("")
+  const [statMin, setStatMin] = useState<string>("")
 
   useEffect(() => {
     let interval: number = 0
@@ -25,6 +27,8 @@ const Timer: React.FC = memo(() => {
       }, 10)
     } else if (!working) {
       clearInterval(interval)
+      setStatHour(createClock().hour)
+      setStatMin(createClock().minute)
     }
     return () => clearInterval(interval)
   }, [working])
@@ -66,7 +70,7 @@ const Timer: React.FC = memo(() => {
         </HStack>
       </Flex>
       <Box {...TimerStatusBoxStyles}>
-        <Status hour={createClock().hour} minute={createClock().minute} />
+        <Status hour={statHour} minute={statMin} />
       </Box>
     </Flex>
   )
