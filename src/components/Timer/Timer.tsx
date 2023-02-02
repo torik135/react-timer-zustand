@@ -1,6 +1,7 @@
-import { Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react"
+import { Box, Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react"
 import React, { memo, useEffect, useState } from "react"
-import { BtnStyles, HStackStyles, TimerFlexStyles, TimerTextStyles } from "./styles"
+import { Status } from "../Status"
+import { BtnStyles, HStackStyles, TimerFlexStyles, TimerInsideFlexStyles, TimerProjectTextStyles, TimerStatusBoxStyles, TimerTextStyles } from "./styles"
 
 
 const Timer: React.FC = memo(() => {
@@ -28,25 +29,46 @@ const Timer: React.FC = memo(() => {
     <Button {...BtnStyles} onClick={() => setWorking(false)}>Working</Button>
   )
 
+  // function timeHour() {
+  //   const t = ("0" + Math.floor((time / 60000) % 60)).slice(-2)
+  //   return t
+  // }
+
+  // function timeMinute() {
+  //   const t = ("0" + Math.floor((time / 1000) & 60)).slice(-2)
+  //   return t
+  // }
+
+  // function timeSecond() {
+  //   const t = ("0" + ((time / 10) % 100)).slice(-2)
+  //   return t
+  // }
+
 
   return (
     <Flex {...TimerFlexStyles}>
-      <Text>Project Name</Text>
-      <Spacer />
-      <HStack {...HStackStyles}>
-        {/* <Text>00:00:00</Text> */}
-        {/* <Button onClick={() => setWotking(prev => !prev)}>{working ? "Working" : "Paused"}</Button> */}
-        <HStack>
-          <Text {...TimerTextStyles}>
-            <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)} : </span>
-            <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)} : </span>
-            <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
-          </Text>
+      <Flex {...TimerInsideFlexStyles}>
+        <Text {...TimerProjectTextStyles}>Project Name</Text>
+        <Spacer />
+        <HStack {...HStackStyles}>
+          <HStack>
+            <Text {...TimerTextStyles}>
+              <span>{("0" + Math.floor((time / 600000) % 60)).slice(-2)} : </span>
+              <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)} : </span>
+              <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
+              {/* <span>{("0" + ((time / 10) % 100)).slice(-2)}</span> */}
+              {/* <span>{timeHour()}</span> */}
+              {/* <span>{timeMinute()}</span> */}
+            </Text>
+          </HStack>
+          <HStack>
+            {working ? stopBtn : startBtn}
+          </HStack>
         </HStack>
-        <HStack>
-          {working ? stopBtn : startBtn}
-        </HStack>
-      </HStack>
+      </Flex>
+      <Box {...TimerStatusBoxStyles}>
+        <Status />
+      </Box>
     </Flex>
   )
 })
@@ -54,6 +76,8 @@ const Timer: React.FC = memo(() => {
 /**
 * setTime to 0 after 00 at night.
 * setTime to 0 after change task.
+* save hour and minute in a state type of string.
+* and show it in the Status.
 * */
 
 export { Timer }
