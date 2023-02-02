@@ -1,16 +1,14 @@
 import { Box, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
+import { useStore } from "../../context/useStore";
 
-type IStatus = {
-  hour: string,
-  minute: string,
-  second: string,
-}
 
-const Status: React.FC<IStatus> = memo(({ hour = 0, minute = 0, second = 0 }) => {
+const Status: React.FC = memo(() => {
+  const [store] = useStore()
+
   return (
     <Box>
-      <Text>{hour} hour(s) {minute} minute(s) {second} seconds Worked Today.</Text>
+      <Text>You Worked <b>{store.statHour} hour(s) {store.statMin} minute(s) {store.statSec} seconds</b> Today.</Text>
     </Box>
   )
 })

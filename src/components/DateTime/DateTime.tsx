@@ -8,9 +8,9 @@ const DateTime: React.FC = memo(() => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(new Date().toLocaleTimeString(["id"]))
+      setTime(new Date().toLocaleTimeString(["en"]))
       setDate(new Date().toLocaleDateString(
-        ["id", "ID"],
+        ["en", "en-US"],
         { day: "numeric", weekday: "long", month: "long", year: "numeric" }))
     }, 1000)
 
@@ -21,7 +21,7 @@ const DateTime: React.FC = memo(() => {
     <Flex {...DateFlexStyles}>
       <Box {...DateBoxStyles}>{date}</Box>
       <Flex {...TimeFlexStyles}>
-        <Text>Jam : </Text>
+        <Text>Time : </Text>
         <Text {...TimeTextStyles}> {time}</Text>
       </Flex>
     </Flex>

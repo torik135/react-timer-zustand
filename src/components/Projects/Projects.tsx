@@ -1,5 +1,6 @@
 import { Box, Flex, Radio, RadioGroup, Text, useRadioGroup } from "@chakra-ui/react";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useRef } from "react";
+import { useStore } from "../../context/useStore";
 import {
   ProjectFlexStyles,
   ProjectItemRadioStyles,
@@ -23,18 +24,26 @@ const projects: IProj[] = [
 ]
 
 const Projects: React.FC = memo(() => {
-  const [titleState, setTitleState] = useState<string>("")
+  const [store, setStore] = useStore()
 
   const { value, getRadioProps, getRootProps } = useRadioGroup()
 
+  useEffect(() => {
+    setStore({ ...store, projTitle: value })
+  }, [value])
+
   return (
     <Flex {...ProjectFlexStyles} {...getRootProps}>
-      <Text {...ProjectTextStyles}>Pick your project : {value}</Text>
+      <Text {...ProjectTextStyles}>Pick your project : {store.projTitle}</Text>
       <RadioGroup>
         <Box {...ProjectListStyles}>
           {projects.map(project => (
             <Flex {...ProjectItemFlexStyles} key={`${Math.random()}_${project.id}`} >
-              <Radio {...ProjectItemRadioStyles} value={project.title} {...getRadioProps({ value: project.title })}>
+              <Radio
+                {...ProjectItemRadioStyles}
+                value={project.title}
+                {...getRadioProps({ value: project.title })}
+              >
                 <Text fontWeight="bolder">{project.title}</Text>
               </Radio>
               <Text>{project.time}</Text>
@@ -42,7 +51,7 @@ const Projects: React.FC = memo(() => {
           ))}
         </Box>
       </RadioGroup>
-    </Flex>
+    </Flex >
   )
 })
 

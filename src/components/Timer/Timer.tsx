@@ -1,5 +1,6 @@
 import { Box, Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react"
-import React, { memo, useEffect, useState } from "react"
+import React, { memo, useContext, useEffect, useState } from "react"
+import { useStore } from "../../context/useStore"
 import { Status } from "../Status"
 import {
   BtnStyles,
@@ -13,35 +14,13 @@ import {
 
 
 const Timer: React.FC = memo(() => {
+  const [store, setStore] = useStore()
+
   const [working, setWorking] = useState<boolean>(false)
   const [time, setTime] = useState<number>(0)
-  const [statHour, setStatHour] = useState<string>("")
-  const [statMin, setStatMin] = useState<string>("")
-  const [statSec, setStatSec] = useState<string>("")
-
-  useEffect(() => {
-    let interval: number = 0
-
-    if (working) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 10)
-      }, 10)
-    } else if (!working) {
-      clearInterval(interval)
-      setStatHour(createClock().hour)
-      setStatMin(createClock().minute)
-      setStatSec(createClock().second)
-    }
-    return () => clearInterval(interval)
-  }, [working])
-
-  const startBtn = (
-    <Button {...BtnStyles} onClick={() => setWorking(true)}>Paused</Button>
-  )
-
-  const stopBtn = (
-    <Button {...BtnStyles} onClick={() => setWorking(false)}>Working</Button>
-  )
+  // const [statHour, setStatHour] = useState<string>("")
+  // const [statMin, setStatMin] = useState<string>("")
+  // const [statSec, setStatSec] = useState<string>("")
 
   function createClock() {
     const times: { hour: string, minute: string, second: string } = {
@@ -51,12 +30,45 @@ const Timer: React.FC = memo(() => {
     }
     return times
   }
+  useEffect(() => {
+    let interval: number = 0
 
+    if (working) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10)
+        setStore({ ...store, working: working })
+      }, 10)
+    } else if (!working) {
+      clearInterval(interval)
+      // setStatHour(createClock().hour)
+      // setStatMin(createClock().minute)
+      // setStatSec(createClock().second)
+      setStore({
+        ...store,
+        working,
+        time: time,
+        statSec: createClock().second,
+        statMin: createClock().minute,
+        statHour: createClock().hour
+      })
+    }
+    return () => clearInterval(interval)
+  }, [working])
+
+  console.log(store)
+
+  const startBtn = (
+    <Button {...BtnStyles} onClick={() => setWorking(true)}>Paused</Button>
+  )
+
+  const stopBtn = (
+    <Button {...BtnStyles} onClick={() => setWorking(false)}>Working</Button>
+  )
 
   return (
     <Flex {...TimerFlexStyles}>
       <Flex {...TimerInsideFlexStyles}>
-        <Text {...TimerProjectTextStyles}>Project Name</Text>
+        <Text {...TimerProjectTextStyles}>{store.projTitle}</Text>
         <Spacer />
         <HStack {...HStackStyles}>
           <HStack>
@@ -72,7 +84,7 @@ const Timer: React.FC = memo(() => {
         </HStack>
       </Flex>
       <Box {...TimerStatusBoxStyles}>
-        <Status hour={statHour} minute={statMin} second={statSec} />
+        <Status />
       </Box>
     </Flex>
   )
@@ -84,6 +96,7 @@ const Timer: React.FC = memo(() => {
 * save hour and minute in a state type of string.
 * and show it in the Status.
 * Status = total time after paused.
+* 
 * */
 
 export { Timer }
