@@ -22,14 +22,12 @@ export const HStackStyles: StackProps = {
 }
 
 export const TimerTextStyles: TextProps = {
-  minWidth: "10rem",
-  border: "1px solid white",
+  minWidth: "6rem",
   padding: ".5rem",
   fontWeight: "bolder",
 }
 
 export const TimerProjectTextStyles: TextProps = {
-  border: "1px solid white",
   padding: ".5rem",
 }
 

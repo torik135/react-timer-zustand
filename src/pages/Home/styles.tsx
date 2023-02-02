@@ -11,7 +11,6 @@ export const CompBoxStyles: BoxProps = {
   borderRadius: "7px",
   bg: "tomato",
   minHeight: "100px",
-  maxHeight: "150px",
 }
 
 

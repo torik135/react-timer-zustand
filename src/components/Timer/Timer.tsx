@@ -17,6 +17,7 @@ const Timer: React.FC = memo(() => {
   const [time, setTime] = useState<number>(0)
   const [statHour, setStatHour] = useState<string>("")
   const [statMin, setStatMin] = useState<string>("")
+  const [statSec, setStatSec] = useState<string>("")
 
   useEffect(() => {
     let interval: number = 0
@@ -29,6 +30,7 @@ const Timer: React.FC = memo(() => {
       clearInterval(interval)
       setStatHour(createClock().hour)
       setStatMin(createClock().minute)
+      setStatSec(createClock().second)
     }
     return () => clearInterval(interval)
   }, [working])
@@ -70,14 +72,14 @@ const Timer: React.FC = memo(() => {
         </HStack>
       </Flex>
       <Box {...TimerStatusBoxStyles}>
-        <Status hour={statHour} minute={statMin} />
+        <Status hour={statHour} minute={statMin} second={statSec} />
       </Box>
     </Flex>
   )
 })
 
 /**
-* setTime to 0 after 00 at night.
+* setTime to 0 after 00:01 at night.
 * setTime to 0 after change task.
 * save hour and minute in a state type of string.
 * and show it in the Status.
