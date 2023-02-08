@@ -1,6 +1,7 @@
 import { Box, Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react"
 import React, { memo, useEffect, useState } from "react"
 import { useStore } from "../../context/useStore"
+import { useProject } from "../../store/Project/useProject"
 import { Status } from "../Status"
 import {
   BtnStyles,
@@ -19,6 +20,8 @@ const Timer: React.FC = memo(() => {
   const [working, setWorking] = useState<boolean>(false)
   const [time, setTime] = useState<number>(0)
 
+  const { getId, projectList } = useProject((state) => state)
+
   // function createClock() {
   //   const times: { hour: string, minute: string, second: string } = {
   //     hour: ("0" + Math.floor((time / 600000) % 60)).slice(-2),
@@ -28,6 +31,7 @@ const Timer: React.FC = memo(() => {
   //   return times
   // }
 
+  // console.log(getProjectById(getId))
   function createClock() {
     const times: { hour: string, minute: string, second: string } = {
       hour: ("0" + Math.floor((time / 600000) % 60)).slice(-2),
@@ -73,20 +77,27 @@ const Timer: React.FC = memo(() => {
   return (
     <Flex {...TimerFlexStyles}>
       <Flex {...TimerInsideFlexStyles}>
-        <Text {...TimerProjectTextStyles}>{store.projTitle}</Text>
-        <Spacer />
-        <HStack {...HStackStyles}>
-          <HStack>
-            <Text {...TimerTextStyles}>
-              <span>{createClock().hour} : </span>
-              <span>{createClock().minute} : </span>
-              <span>{createClock().second}</span>
-            </Text>
-          </HStack>
-          <HStack>
-            {working ? stopBtn : startBtn}
-          </HStack>
-        </HStack>
+        {projectList.filter((proj) => proj.id === getId).map(p => (
+          <>
+            <Text {...TimerProjectTextStyles}>{p.title}</Text>
+            <Spacer />
+            <HStack {...HStackStyles}>
+              <HStack>
+                <Text {...TimerTextStyles}>
+                  {/* <span>{createClock().hour} : </span> */}
+                  {/* <span>{createClock().minute} : </span> */}
+                  {/* <span>{createClock().second}</span> */}
+                  <span>{p.timeHour} : </span>
+                  <span>{p.timeMin} : </span>
+                  <span>{p.timeSec}</span>
+                </Text>
+              </HStack>
+              <HStack>
+                {working ? stopBtn : startBtn}
+              </HStack>
+            </HStack>
+          </>
+        ))}
       </Flex>
       <Box {...TimerStatusBoxStyles}>
         <Status />

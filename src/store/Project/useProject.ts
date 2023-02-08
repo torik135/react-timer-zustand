@@ -12,6 +12,7 @@ export type ProjectType = {
 export type StoreType = {
   projectList: ProjectType[],
   getProject: (url: string) => void,
+  // getProjectById: (id: number) => void,
   addProject: (title: string, timeHour: string, timeMin: string, timeSec: string) => void,
 
   getId: number,
@@ -30,11 +31,16 @@ export const useProject = create<StoreType>((set) => ({
     const resp = await fetch(url)
     set({ projectList: await resp.json() })
   },
+  // getProjectById: (id: number) => {
+  //   set((state) => ({
+  //     projectList: state.projectList.filter(proj => proj.id === id).map((p) => p)
+  //   }))
+  // },
   addProject: (title: string, timeHour: string, timeMin: string, timeSec: string) => {
     set((state) => ({
       projectList: [
         {
-          id: Math.max(0, Math.max(...projectList.map(({ id }) => id))) + 1,
+          id: Math.max(0, Math.max(...state.projectList.map(({ id }: { id: number }) => id))) + 1,
           title,
           timeHour,
           timeMin,

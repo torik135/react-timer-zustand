@@ -14,7 +14,7 @@ const Projects: React.FC = memo(() => {
 
   const { projectList, getId, setId } = useProject((state) => state)
 
-  console.log(getId)
+  // console.log(getId)
 
   return (
     <Flex {...ProjectFlexStyles}>
