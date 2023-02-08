@@ -9,3 +9,23 @@
 | Task | Time Worked in | Date Work |
 -------------------------------------
 | Todo | 01:34:2        | 22/02/2023 |
+
+- add CRUD func to the projects list.
+- load csv or json file into the project list.
+> format: 
+```json
+{
+  {
+    "id": 1, 
+    "title": "Make API",
+    "desc": "Make API for this project",
+    "time": {
+      "hour": "0",
+      "minute": "0",
+      "second": "0"
+    }
+  },
+  {...}
+}
+
+```

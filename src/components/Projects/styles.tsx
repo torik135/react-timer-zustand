@@ -1,4 +1,4 @@
-import { BoxProps, FlexProps, RadioProps, TextProps } from "@chakra-ui/react";
+import { BoxProps, FlexProps, TextProps } from "@chakra-ui/react";
 
 export const ProjectFlexStyles: FlexProps = {
   direction: "column",
@@ -14,10 +14,6 @@ export const ProjectListStyles: BoxProps = {
   width: "100%",
 }
 
-export const ProjectItemRadioStyles: RadioProps = {
-  padding: ".5rem",
-  borderRadius: "7px",
-}
 
 export const ProjectItemFlexStyles: FlexProps = {
   padding: ".5rem",
@@ -26,5 +22,6 @@ export const ProjectItemFlexStyles: FlexProps = {
   marginBottom: ".5rem",
   justifyContent: "space-between",
   alignItems: "center",
+  cursor: "pointer",
 }
 

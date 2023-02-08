@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react"
-import React, { memo, useContext, useEffect, useState } from "react"
+import React, { memo, useEffect, useState } from "react"
 import { useStore } from "../../context/useStore"
 import { Status } from "../Status"
 import {
@@ -18,9 +18,15 @@ const Timer: React.FC = memo(() => {
 
   const [working, setWorking] = useState<boolean>(false)
   const [time, setTime] = useState<number>(0)
-  // const [statHour, setStatHour] = useState<string>("")
-  // const [statMin, setStatMin] = useState<string>("")
-  // const [statSec, setStatSec] = useState<string>("")
+
+  // function createClock() {
+  //   const times: { hour: string, minute: string, second: string } = {
+  //     hour: ("0" + Math.floor((time / 600000) % 60)).slice(-2),
+  //     minute: ("0" + Math.floor((time / 60000) % 60)).slice(-2),
+  //     second: ("0" + Math.floor((time / 1000) % 60)).slice(-2)
+  //   }
+  //   return times
+  // }
 
   function createClock() {
     const times: { hour: string, minute: string, second: string } = {
@@ -30,6 +36,8 @@ const Timer: React.FC = memo(() => {
     }
     return times
   }
+
+
   useEffect(() => {
     let interval: number = 0
 
@@ -40,9 +48,6 @@ const Timer: React.FC = memo(() => {
       }, 10)
     } else if (!working) {
       clearInterval(interval)
-      // setStatHour(createClock().hour)
-      // setStatMin(createClock().minute)
-      // setStatSec(createClock().second)
       setStore({
         ...store,
         working,
@@ -55,7 +60,7 @@ const Timer: React.FC = memo(() => {
     return () => clearInterval(interval)
   }, [working])
 
-  console.log(store)
+  // console.log(store)
 
   const startBtn = (
     <Button {...BtnStyles} onClick={() => setWorking(true)}>Paused</Button>
