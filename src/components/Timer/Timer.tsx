@@ -1,7 +1,7 @@
 import { Box, Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react"
 import React, { memo, useEffect, useState } from "react"
 import { useStore } from "../../context/useStore"
-import { useProject } from "../../store/Project/useProject"
+import { useProject } from "../../store"
 import { Status } from "../Status"
 import {
   BtnStyles,
@@ -48,7 +48,7 @@ const Timer: React.FC = memo(() => {
     if (working) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10)
-        setStore({ ...store, working: working })
+        // setStore({ ...store, working: working })
       }, 10)
     } else if (!working) {
       clearInterval(interval)

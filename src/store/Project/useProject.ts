@@ -12,7 +12,7 @@ export type ProjectType = {
 export type StoreType = {
   projectList: ProjectType[],
   getProject: (url: string) => void,
-  // getProjectById: (id: number) => void,
+  getProjectById: (id: number) => void,
   addProject: (title: string, timeHour: string, timeMin: string, timeSec: string) => void,
 
   getId: number,
@@ -21,21 +21,28 @@ export type StoreType = {
 }
 
 export const useProject = create<StoreType>((set) => ({
+  // projectList can be empty list.
   projectList: [
     { id: 1, title: "Make API", timeHour: "01", timeMin: "01", timeSec: "01" },
     { id: 2, title: "Make DB", timeHour: "02", timeMin: "02", timeSec: "02" },
     { id: 3, title: "Make FE", timeHour: "03", timeMin: "03", timeSec: "03" },
     { id: 4, title: "Make BE", timeHour: "04", timeMin: "04", timeSec: "04" },
   ],
+
+  // getProject can be use axios if fetching from api.
   getProject: async (url: string) => {
     const resp = await fetch(url)
     set({ projectList: await resp.json() })
   },
-  // getProjectById: (id: number) => {
-  //   set((state) => ({
-  //     projectList: state.projectList.filter(proj => proj.id === id).map((p) => p)
-  //   }))
-  // },
+
+  // getProjectById used for display and updating one data.
+  getProjectById: (id: number) => {
+    set((state) => ({
+      projectList: state.projectList.filter(proj => proj.id === id)
+    }))
+  },
+
+  // if using CRUD func.
   addProject: (title: string, timeHour: string, timeMin: string, timeSec: string) => {
     set((state) => ({
       projectList: [
@@ -51,10 +58,14 @@ export const useProject = create<StoreType>((set) => ({
     }))
   },
 
+  // #2 option for getProjectById
+  // but only return id type number.
   getId: 0,
   setId: (id: number) => {
     set({ getId: id })
   },
+
+  // updating selected project time.
   updateTime: (id: number, timeHour: string, timeMin: string, timeSec: string) => {
     set((state) => ({
       projectList: state.projectList.map((p) => {

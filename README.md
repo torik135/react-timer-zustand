@@ -1,8 +1,12 @@
-## TImer with ReactJS
+## Timer with ReactJS
+
+# STATUS: ON-PROGRESS
 
 ## TODO
-- change project list into Radio. [DONE]
-- save active projects (min 1 sec timer) into state and export it into csv files.
+- change project list into Radio. [REMOVED]
+- use zustand for global state and remove context API. [PROGRESS]
+- save active projects (min 1 sec timer) into state. [PROGRESS]
+- and export it into csv files.
 - create saveStore to save each item(project, time worked, date) per date.
 > example:
 
@@ -12,6 +16,7 @@
 
 - add CRUD func to the projects list.
 - load csv or json file into the project list.
+
 > format: 
 ```json
 {
