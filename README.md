@@ -11,7 +11,7 @@
 > example:
 
 | Task | Time Worked in | Date Work |
--------------------------------------
+|------|----------------|------------|
 | Todo | 01:34:2        | 22/02/2023 |
 
 - add CRUD func to the projects list.
