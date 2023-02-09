@@ -46,12 +46,12 @@ const Timer: React.FC = memo(() => {
     let interval: number = 0
 
     if (working) {
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setTime((prevTime) => prevTime + 10)
         // setStore({ ...store, working: working })
       }, 10)
     } else if (!working) {
-      clearInterval(interval)
+      // clearInterval(interval)
       setStore({
         ...store,
         working,
